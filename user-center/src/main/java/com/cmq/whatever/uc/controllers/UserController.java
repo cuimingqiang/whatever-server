@@ -2,6 +2,7 @@ package com.cmq.whatever.uc.controllers;
 
 import com.cmq.whatever.uc.https.params.RegisterParam;
 import com.cmq.whatever.uc.https.results.BaseResult;
+import com.cmq.whatever.uc.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    BaseResult result;
+    UserService userService;
 
     @RequestMapping(value = "/register",method = {RequestMethod.POST})
     public BaseResult register(@RequestBody RegisterParam param){
-        result.reset();
-
-        return result;
+        return userService.register(param);
     }
 }
