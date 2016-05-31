@@ -33,13 +33,5 @@ public class UserController {
         return userService.register(param);
     }
 
-    /**
-     * 验证手机号是否已注册
-     * @param phone
-     * @return
-     */
-    @RequestMapping(value = "/validatePhone/{phone}",method = RequestMethod.GET)
-    public BaseResult validatePhone(@PathVariable("phone")String phone){
-        return userService.validatePhone(phone);
-    }
+
 }

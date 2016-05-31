@@ -23,6 +23,11 @@ public class UserEntity {
     private String nickname;
 
     /**
+     * 用户头像
+     */
+    private String avatar;
+
+    /**
      * 用户密码
      */
     @Column(nullable = false)
@@ -118,5 +123,13 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

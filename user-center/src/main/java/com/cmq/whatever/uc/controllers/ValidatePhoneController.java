@@ -44,4 +44,14 @@ public class ValidatePhoneController {
         String code = (String) map.get("code");
         return validatePhoneService.validateCode(phone,code);
     }
+
+    /**
+     * 验证手机号是否已注册
+     * @param phone
+     * @return
+     */
+    @RequestMapping(value = "/validatePhone/{phone}",method = RequestMethod.GET)
+    public BaseResult validatePhone(@PathVariable("phone")String phone){
+        return validatePhoneService.validatePhone(phone);
+    }
 }

@@ -9,4 +9,6 @@ public interface ValidatePhoneService {
     BaseResult getCode(String phone, String type);
 
     BaseResult validateCode(String phone, String code);
+
+    BaseResult validatePhone(String phone);
 }

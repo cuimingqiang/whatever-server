@@ -43,13 +43,5 @@ public class UserServiceImpl implements UserService{
         return result;
     }
 
-    @Override
-    public BaseResult validatePhone(String phone) {
-        result.reset();
-        if(repository.findUserByPhone(phone) != null){
-            result.setCode(100);
-            result.setMsg("用户已存在");
-        }
-        return result;
-    }
+
 }

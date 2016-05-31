@@ -80,6 +80,16 @@ public class ValidatePhoneServiceImpl implements ValidatePhoneService{
         return result;
     }
 
+    @Override
+    public BaseResult validatePhone(String phone) {
+        result.reset();
+        if(repository.findUserByPhone(phone) != null){
+            result.setCode(100);
+            result.setMsg("用户已存在");
+        }
+        return result;
+    }
+
     public int getAbsInt(){
         return Math.abs(random.nextInt()%10);
     }

@@ -11,5 +11,5 @@ public interface UserService {
     BaseResult register(RegisterParam param);
 
 
-    BaseResult validatePhone(String phone);
+
 }
