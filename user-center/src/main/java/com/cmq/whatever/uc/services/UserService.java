@@ -9,4 +9,7 @@ import com.cmq.whatever.uc.https.results.BaseResult;
 
 public interface UserService {
     BaseResult register(RegisterParam param);
+
+
+    BaseResult validatePhone(String phone);
 }

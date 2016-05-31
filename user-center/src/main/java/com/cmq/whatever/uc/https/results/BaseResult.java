@@ -1,9 +1,10 @@
 package com.cmq.whatever.uc.https.results;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.Null;
 
 /**
  * Created by admin on 16/5/29.
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BaseResult<T> {
     private Integer code;
-    private String errMsg;
+    private String msg;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     public Integer getCode() {
@@ -23,12 +25,12 @@ public class BaseResult<T> {
         this.code = code;
     }
 
-    public String getErrMsg() {
-        return errMsg;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setErrMsg(String errMsg) {
-        this.errMsg = errMsg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {
@@ -41,6 +43,7 @@ public class BaseResult<T> {
 
     public void reset(){
         code = HttpStatus.OK.value();
-        errMsg = HttpStatus.OK.name();
+        msg = HttpStatus.OK.name();
+        data = null;
     }
 }

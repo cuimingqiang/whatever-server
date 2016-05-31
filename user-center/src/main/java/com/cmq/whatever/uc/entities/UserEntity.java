@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="user")
-public class UsersEntity {
+public class UserEntity {
     /**
      * 用户ID,自动生成
      */
@@ -38,7 +38,7 @@ public class UsersEntity {
      * 注册设备
      */
     @Column(nullable = false)
-    private Date registerDevice;
+    private String registerDevice;
 
     /**
      * 设备标示符,运营推广使用
@@ -88,11 +88,11 @@ public class UsersEntity {
         this.registerTime = registerTime;
     }
 
-    public Date getRegisterDevice() {
+    public String getRegisterDevice() {
         return registerDevice;
     }
 
-    public void setRegisterDevice(Date registerDevice) {
+    public void setRegisterDevice(String registerDevice) {
         this.registerDevice = registerDevice;
     }
 
