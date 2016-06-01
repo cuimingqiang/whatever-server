@@ -11,10 +11,10 @@ import javax.validation.constraints.Null;
  */
 
 @Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseResult<T> {
     private Integer code;
     private String msg;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     public Integer getCode() {

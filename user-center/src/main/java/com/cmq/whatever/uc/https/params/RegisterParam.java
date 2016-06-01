@@ -4,11 +4,20 @@ package com.cmq.whatever.uc.https.params;
  * Created by admin on 16/5/29.
  */
 public class RegisterParam {
+    private String registerToken;
     private String nickname;
     private String password;
     private String phone;
     private String device;
     private String deviceId;
+
+    public String getRegisterToken() {
+        return registerToken;
+    }
+
+    public void setRegisterToken(String registerToken) {
+        this.registerToken = registerToken;
+    }
 
     public String getNickname() {
         return nickname;

@@ -1,5 +1,8 @@
 package com.cmq.whatever.uc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.redis.core.RedisHash;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,6 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name="user")
 public class UserEntity {
+
     /**
      * 用户ID,自动生成
      */
@@ -27,9 +31,12 @@ public class UserEntity {
      */
     private String avatar;
 
+    @Transient
+    private String token;
     /**
      * 用户密码
      */
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -54,6 +61,7 @@ public class UserEntity {
     /**
      * 电话号码
      */
+    @Column(unique = true)
     private String phone;
 
     /**
@@ -131,5 +139,13 @@ public class UserEntity {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

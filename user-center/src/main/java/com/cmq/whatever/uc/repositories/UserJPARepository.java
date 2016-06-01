@@ -13,8 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity,Long>{
+public interface UserJPARepository extends JpaRepository<UserEntity,Long>{
 
     @Query(value = "select a from #{#entityName} a where a.phone=:phone and 1=1")
     UserEntity findUserByPhone(@Param("phone") String phone);
+
+    @Query(value = "select a from #{#entityName} a where a.phone=:phone and password=:password")
+    UserEntity login(@Param("phone")String phone,@Param("password")String password);
 }

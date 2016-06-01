@@ -1,5 +1,6 @@
 package com.cmq.whatever.uc.services;
 
+import com.cmq.whatever.uc.https.params.LoginParam;
 import com.cmq.whatever.uc.https.params.RegisterParam;
 import com.cmq.whatever.uc.https.results.BaseResult;
 
@@ -11,5 +12,7 @@ public interface UserService {
     BaseResult register(RegisterParam param);
 
 
+    BaseResult login(LoginParam param);
 
+    BaseResult users();
 }

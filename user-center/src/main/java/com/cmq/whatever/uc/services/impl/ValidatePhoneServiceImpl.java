@@ -1,7 +1,7 @@
 package com.cmq.whatever.uc.services.impl;
 
 import com.cmq.whatever.uc.https.results.BaseResult;
-import com.cmq.whatever.uc.repositories.UserRepository;
+import com.cmq.whatever.uc.repositories.UserJPARepository;
 import com.cmq.whatever.uc.services.ValidatePhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ public class ValidatePhoneServiceImpl implements ValidatePhoneService{
     StringRedisTemplate redisTemplate;
 
     @Autowired
-    UserRepository repository;
+    UserJPARepository repository;
 
     @Autowired
     BaseResult result;
@@ -40,7 +40,17 @@ public class ValidatePhoneServiceImpl implements ValidatePhoneService{
                 result.setMsg("用户已存在");
                 return result;
             }
+            sendCode(phone);
+        }else {
+            result.setCode(100);
+            result.setMsg("请求不合法");
         }
+
+        return result;
+    }
+
+
+    private void sendCode(String phone){
         String key = String.format("code#%s",phone);
         String code = redisTemplate.opsForValue().get(key);
         if(code == null) {
@@ -51,18 +61,14 @@ public class ValidatePhoneServiceImpl implements ValidatePhoneService{
             result.setCode(100);
             result.setMsg("你已经获取过验证码了");
         }
-        return result;
     }
-
-
-
 
     @Override
     public BaseResult validateCode(String phone, String code) {
         result.reset();
         String key = String.format("code#%s",phone);
         String redisCode = redisTemplate.opsForValue().get(key);
-        if(redisCode == null){
+        if(redisCode == null){//redis 里找不到验证码,表面已失效,1,过时 2已使用过
             result.setCode(100);
             result.setMsg("验证码已失效,请重新获取验证码!");
         }else if(!redisCode.equals(code)){
@@ -72,7 +78,7 @@ public class ValidatePhoneServiceImpl implements ValidatePhoneService{
             Map map = new HashMap<>();
             String keyToken = String.format("registerToken",phone);
             map.put(keyToken, UUID.randomUUID().toString());
-            redisTemplate.opsForValue().set(String.format("%s#%s",keyToken,phone),(String) map.get(keyToken));
+            redisTemplate.opsForValue().set(String.format("%s#%s",keyToken,phone),(String) map.get(keyToken),60*60,TimeUnit.SECONDS);
             redisTemplate.opsForValue().getOperations().delete(key);
 
             result.setData(map);
