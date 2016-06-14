@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * Created by admin on 16/5/29.
  */
+@RedisHash("user")
 @Entity
 @Table(name="user")
 public class UserEntity {

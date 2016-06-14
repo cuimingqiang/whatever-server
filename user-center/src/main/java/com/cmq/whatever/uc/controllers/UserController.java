@@ -4,6 +4,7 @@ import com.cmq.whatever.uc.entities.UserEntity;
 import com.cmq.whatever.uc.https.params.LoginParam;
 import com.cmq.whatever.uc.https.params.RegisterParam;
 import com.cmq.whatever.uc.https.results.BaseResult;
+import com.cmq.whatever.uc.repositories.UserRedisRepository;
 import com.cmq.whatever.uc.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    RedisTemplate redisTemplate;
     /**
      * 注册用户
      * @param param
@@ -47,12 +46,7 @@ public class UserController {
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     public void test(){
-       UserEntity entity = new UserEntity();
-        entity.setToken("asdasdasd");
-        redisTemplate.opsForSet().add("a",entity);
-        UserEntity userEntity = (UserEntity) redisTemplate.opsForSet().pop("a");
-        logger.info(userEntity.getToken());
-
+        userService.test();
     }
 
     @RequestMapping(value = "/users",method = RequestMethod.GET)

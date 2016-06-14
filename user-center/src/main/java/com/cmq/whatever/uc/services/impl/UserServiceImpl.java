@@ -5,6 +5,7 @@ import com.cmq.whatever.uc.https.params.LoginParam;
 import com.cmq.whatever.uc.https.params.RegisterParam;
 import com.cmq.whatever.uc.https.results.BaseResult;
 import com.cmq.whatever.uc.repositories.UserJPARepository;
+import com.cmq.whatever.uc.repositories.UserRedisRepository;
 import com.cmq.whatever.uc.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    UserRedisRepository redisRepository;
 
     @Override
     public BaseResult register(RegisterParam param) {
@@ -73,8 +77,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void test() {
+        redisRepository.save(repository.findAll());
+    }
+
+    @Override
     public BaseResult users() {
         result.reset();
+        result.setData(redisRepository.findAll());
         return result;
     }
 
