@@ -15,4 +15,6 @@ public interface UserService {
     BaseResult login(LoginParam param);
 
     BaseResult users();
+
+    void test();
 }
