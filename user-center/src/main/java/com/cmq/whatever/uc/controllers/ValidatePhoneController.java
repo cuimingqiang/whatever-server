@@ -1,10 +1,8 @@
 package com.cmq.whatever.uc.controllers;
 
-import com.cmq.whatever.uc.https.results.BaseResult;
 import com.cmq.whatever.uc.services.ValidatePhoneService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -27,7 +25,7 @@ public class ValidatePhoneController {
      * @return
      */
     @RequestMapping(value = "/getCode/{phone}/{type}",method = {RequestMethod.GET})
-    public BaseResult getCode(@PathVariable("phone")String phone, @PathVariable("type")String type){
+    public Object getCode(@PathVariable("phone")String phone, @PathVariable("type")String type){
         logger.info(type);
         return  validatePhoneService.getCode(phone,type);
     }
@@ -38,7 +36,7 @@ public class ValidatePhoneController {
      * @return
      */
     @RequestMapping(value = "/validateCode",method = {RequestMethod.POST})
-    public BaseResult validateCode(@RequestBody Map map){
+    public Object validateCode(@RequestBody Map map){
         logger.info(map);
         String phone = (String) map.get("phone");
         String code = (String) map.get("code");
@@ -51,7 +49,7 @@ public class ValidatePhoneController {
      * @return
      */
     @RequestMapping(value = "/validatePhone/{phone}",method = RequestMethod.GET)
-    public BaseResult validatePhone(@PathVariable("phone")String phone){
+    public Object validatePhone(@PathVariable("phone")String phone){
         return validatePhoneService.validatePhone(phone);
     }
 }
