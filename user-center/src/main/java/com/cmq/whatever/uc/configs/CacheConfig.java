@@ -3,6 +3,7 @@ package com.cmq.whatever.uc.configs;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.cache.interceptor.SimpleKeyGenerator;
@@ -24,7 +25,7 @@ import java.lang.reflect.Method;
 public class CacheConfig {
 
     @Bean
-    public KeyGenerator keyGenerator(){
+    public KeyGenerator keyGenerator() {
         return new KeyGenerator() {
             @Override
             public Object generate(Object target, Method method, Object... params) {
@@ -42,9 +43,11 @@ public class CacheConfig {
 
     }
 
-    @Bean
+    @Bean(name = "codeCacheManager")
     public RedisCacheManager redisCacheManager(RedisTemplate redisTemplate) {
-        return new RedisCacheManager(redisTemplate);
+        RedisCacheManager manager = new RedisCacheManager(redisTemplate);
+        manager.setDefaultExpiration(10 * 60);
+        return manager;
     }
 
     @Bean

@@ -1,14 +1,12 @@
 package com.cmq.whatever.uc.services;
 
-import com.cmq.whatever.uc.https.results.BaseResult;
-
 /**
  * Created by cuimingqiang on 16/5/31.
  */
 public interface ValidatePhoneService {
-    BaseResult getCode(String phone, String type);
+    Object getCode(String phone, String type)throws Exception;
 
-    BaseResult validateCode(String phone, String code);
+    Object validateCode(String phone, String code)throws Exception;
 
-    BaseResult validatePhone(String phone);
+    Boolean validatePhone(String phone);
 }

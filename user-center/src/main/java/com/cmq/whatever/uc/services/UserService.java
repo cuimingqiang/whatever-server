@@ -11,10 +11,8 @@ import com.cmq.whatever.uc.https.results.BaseResult;
 public interface UserService {
     BaseResult register(RegisterParam param);
 
-
     BaseResult login(LoginParam param);
 
     BaseResult users();
 
-    void test();
 }

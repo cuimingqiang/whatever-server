@@ -12,6 +12,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/user",produces = {"application/json"})
+
 public class ValidatePhoneController {
 
     private static Logger logger = Logger.getLogger(ValidatePhoneController.class);
@@ -25,8 +26,7 @@ public class ValidatePhoneController {
      * @return
      */
     @RequestMapping(value = "/getCode/{phone}/{type}",method = {RequestMethod.GET})
-    public Object getCode(@PathVariable("phone")String phone, @PathVariable("type")String type){
-        logger.info(type);
+    public Object getCode(@PathVariable("phone")String phone, @PathVariable("type")String type) throws Exception{
         return  validatePhoneService.getCode(phone,type);
     }
 
@@ -36,7 +36,7 @@ public class ValidatePhoneController {
      * @return
      */
     @RequestMapping(value = "/validateCode",method = {RequestMethod.POST})
-    public Object validateCode(@RequestBody Map map){
+    public Object validateCode(@RequestBody Map map) throws Exception{
         logger.info(map);
         String phone = (String) map.get("phone");
         String code = (String) map.get("code");
